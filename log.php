@@ -7,9 +7,7 @@ try
 	{
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		$dbhandle;
-		$_SESSION['username'] = $_POST['username'];
-		$_SESSION['password'] = $_POST['password'];
+		$dbhandle;		
 		
 		ValidateUser($username, $password, $dbhandle);
 	}else{
@@ -33,8 +31,11 @@ function ValidateUser($username, $password, $dbhandle)
 		
 		if($role_cd == 1)
 		{
+			$_SESSION['username'] = $_POST['username'];
+			$_SESSION['password'] = $_POST['password'];
+			$_SESSION['isWebsite'] = 'YES';
 			mysql_close($dbhandle);	
-			echo "<script>location.href='Home.php';</script>";	
+			echo "<script>location.href='dashboard.php';</script>";	
 		}else{
 			mysql_close($dbhandle);	
 			echo "<script>alert('Maaf, Hanya admin yang dapat login'); location.href='index.php';</script>";

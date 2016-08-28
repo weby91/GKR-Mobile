@@ -23,6 +23,6 @@
  
  /* Output header */
  header('Content-type: application/json');
- $var = json_encode($json);
- echo json_encode($json);
+ 
+ return json_encode($json);
  ?>

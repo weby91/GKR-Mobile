@@ -5,9 +5,10 @@ if(!isset($_SESSION['username']))
 {
 	// echo "<script>alert('Maaf, Session anda telah habis, silahkan login kembali.'); location.href='index.php';</script>";
 }
-ob_start();
-include 'getJadwal.php';
+$data = (include 'getJadwal.php');
+$data = json_decode($data,true);
 
+header('Content-type: text/html');
 ?>
 
 <!doctype html>
@@ -88,8 +89,7 @@ include 'getJadwal.php';
 		<hr/>
 		<h3>Jadwal Pelayanan</h3>
 		<ul class="toggle">
-			<li class="icn_new_article"><a href="#">Tambah Jadwal Pelayanan</a></li>
-			<li class="icn_edit_article"><a href="#">Ubah Jadwal Pelayanan</a></li>
+			<li class="icn_new_article"><a href="formTambahJadwal.php">Tambah Jadwal Pelayanan</a></li>
 		</ul>
 		<h3>Admin</h3>
 		<ul class="toggle">
@@ -121,18 +121,20 @@ include 'getJadwal.php';
     				<th>Jenis Kebaktian</th> 
     				<th>Tema</th> 
     				<th>Nama Pengkhotbah</th> 
-    				<th>Tanggal</th> 
+    				<th>Tanggal</th>
+					<th></th>
 				</tr> 
 			</thead> 
 			<tbody> 
 				<?php
-					if($data['total'] > 0)
+					if(isset($data) && $data['status'] != 0)
 					{
-						foreach($data['id'] as $key=>$val){ 
+						foreach($data['count'] as $key=>$val){ 
 							echo '<td>' . $val['service_type'] . '</td>';
 							echo '<td>' . $val['theme'] . '</td>';
 							echo '<td>' . $val['preacher_nm'] . '</td>';
 							echo '<td>' . $val['service_dt'] . '</td>';
+							echo '<td><a href="www.google.com"><input type="image" src="images/icn_edit.png" title="Edit"></a></td>';
 						} 
 					}
 				?> 				

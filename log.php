@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php include 'ConnectToDB.php'; ?>
+<?php include_once 'ConnectToDB.php'; ?>
 <?php
 try
 { 
@@ -21,11 +21,11 @@ catch (Exception $ex)
 
 function ValidateUser($username, $password, $dbhandle)
 {
-	$query = mysql_query("SELECT * FROM tbl_user WHERE username = '$username' AND pw = md5('$password')");
+	$query = mysqli_query($dbhandle, "SELECT * FROM tbl_user WHERE username = '$username' AND pw = MD5('$password')");
 	
-	if(mysql_num_rows($query) == 1)	
+	if(mysqli_num_rows($query) == 1)	
 	{
-		while($row = mysql_fetch_array($query)){ 
+		while($row = mysqli_fetch_array($query)){ 
 			$role_cd = $row['role_cd'];		
 		}
 		
@@ -34,13 +34,16 @@ function ValidateUser($username, $password, $dbhandle)
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['password'] = $_POST['password'];
 			$_SESSION['isWebsite'] = 'YES';
-			mysql_close($dbhandle);	
+			mysqli_close($dbhandle);	
 			echo "<script>location.href='dashboard.php';</script>";	
 		}else{
-			mysql_close($dbhandle);	
+			mysqli_close($dbhandle);	
 			echo "<script>alert('Maaf, Hanya admin yang dapat login'); location.href='index.php';</script>";
 		}
 		
+	}else{
+		
+		echo "<script>alert('Maaf, Username dan password anda salah. Silahkan mencoba kembali.'); location.href='index.php';</script>";
 	}
 
 }

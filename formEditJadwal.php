@@ -1,4 +1,18 @@
 <?php include 'checkSession.php'; ?>
+<?php include_once('connectToDB.php');
+
+ $id = $_GET['id'];
+ //$qur = mysql_query("select * FROM tbl_service_schedule ORDER BY service_dt, service_type");
+ $qur = mysql_query("select * FROM tbl_service_schedule WHERE id = $id");
+ if(mysql_num_rows($qur) > 0){
+	while($row = mysql_fetch_array($qur)){ 
+		$service_dt = $row["service_dt"];
+		$service_type = $row["service_type"];
+		$theme = $row["theme"];
+		$preacher_nm = $row["preacher_nm"];
+	}
+ }
+ ?>
 <link rel="stylesheet" href="css/form-builder.min.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/form-render.min.css" type="text/css" media="screen" />
 

@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php include 'checkSession.php'; ?>
 <?php 
 
 if(!isset($_SESSION['username']))
@@ -93,7 +93,7 @@ header('Content-type: text/html');
 		</ul>
 		<h3>Admin</h3>
 		<ul class="toggle">
-			<li class="icn_jump_back"><a href="#">Keluar</a></li>
+			<li class="icn_jump_back"><a href="logout.php">Keluar</a></li>
 		</ul>
 		
 		<footer>
@@ -130,11 +130,11 @@ header('Content-type: text/html');
 					if(isset($data) && $data['status'] != 0)
 					{
 						foreach($data['count'] as $key=>$val){ 
-							echo '<td>' . $val['service_type'] . '</td>';
+							echo '<tr><td>' . $val['service_type'] . '</td>';
 							echo '<td>' . $val['theme'] . '</td>';
 							echo '<td>' . $val['preacher_nm'] . '</td>';
 							echo '<td>' . $val['service_dt'] . '</td>';
-							echo '<td><a href="www.google.com"><input type="image" src="images/icn_edit.png" title="Edit"></a></td>';
+							echo '<td><a href="#"><input type="image" src="images/icn_edit.png" title="Edit"></a></td></tr>';
 						} 
 					}
 				?> 				
